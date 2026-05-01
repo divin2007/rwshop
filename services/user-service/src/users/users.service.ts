@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  UnauthorizedException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IUser } from '@ruralmart/database';
@@ -20,7 +16,7 @@ export class UsersService {
     const createdUser = new this.userModel({
       ...createUserDto,
       passwordHash,
-      security: { failedLoginAttempts: 0, twoFactorEnabled: false },
+      security: { failedLoginAttempts: 0, twoFactorEnabled: false }
     });
     return createdUser.save();
   }
@@ -48,17 +44,9 @@ export class UsersService {
   }
 
   async resetFailedLogins(email: string): Promise<void> {
-    await this.userModel
-      .updateOne(
-        { email },
-        {
-          $set: {
-            'security.failedLoginAttempts': 0,
-            'security.lockedUntil': null,
-            'security.lastLoginAt': new Date(),
-          },
-        },
-      )
-      .exec();
+    await this.userModel.updateOne(
+      { email },
+      { $set: { 'security.failedLoginAttempts': 0, 'security.lockedUntil': null, 'security.lastLoginAt': new Date() } }
+    ).exec();
   }
 }

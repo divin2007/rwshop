@@ -28,7 +28,7 @@
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
     "@ruralmart/database": "*",
-    "@ruralmart/shared": "^1.0.0",
+    "@ruralmart/shared": "*",
     "bcrypt": "^6.0.0",
     "mongoose": "^9.6.1",
     "passport": "^0.7.0",

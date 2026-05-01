@@ -19,9 +19,7 @@ export class AuthService {
     }
 
     if (user.security.lockedUntil && user.security.lockedUntil > new Date()) {
-      throw new UnauthorizedException(
-        'Account locked. Please try again later.',
-      );
+      throw new UnauthorizedException('Account locked. Please try again later.');
     }
 
     const isMatch = await bcrypt.compare(pass, user.passwordHash);

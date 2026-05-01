@@ -12,11 +12,11 @@ import { UsersModule } from './users/users.module';
     UsersModule,
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRootAsync({
-      imports: [AuthModule, UsersModule, ConfigModule],
+      imports: [
+    AuthModule,
+    UsersModule,ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri:
-          configService.get<string>('MONGODB_URI_USER') ||
-          'mongodb://localhost:27017/ruralmart_user',
+        uri: configService.get<string>('MONGODB_URI_USER') || 'mongodb://localhost:27017/ruralmart_user',
       }),
       inject: [ConfigService],
     }),

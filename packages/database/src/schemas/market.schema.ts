@@ -1,4 +1,4 @@
-import { Schema, Document, Types } from 'mongoose';
+import { Schema, Document } from 'mongoose';
 
 export interface ILocation {
   type: string;
@@ -7,33 +7,13 @@ export interface ILocation {
   city: string;
 }
 
-export interface IMarket extends Document {
-  name: string;
-  slug: string;
-  code: string;
-  type: 'public' | 'individual';
-  ownerId?: Types.ObjectId;
-  description: string;
-  location: ILocation;
-  operatingHours: {
-    open: string;
-    close: string;
-    daysOpen: string[];
-  };
-  isActive: boolean;
-  totalSellers: number;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt?: Date;
-}
-
-export const MarketSchema = new Schema<IMarket>(
+export const MarketSchema = new Schema(
   {
     name: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
     code: { type: String, required: true },
     type: { type: String, enum: ['public', 'individual'], required: true },
-    ownerId: { type: Schema.Types.ObjectId, ref: 'User' },
+    ownerId: { type: Schema.Types.ObjectId, ref: 'User' }, // required if individual
     description: { type: String },
     location: {
       type: { type: String, default: 'Point' },
@@ -42,13 +22,53 @@ export const MarketSchema = new Schema<IMarket>(
       city: { type: String, required: true },
     },
     operatingHours: {
-      open: { type: String, default: '06:00' },
-      close: { type: String, default: '18:00' },
-      daysOpen: { type: [String], default: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] },
+      open: { type: String },
+      close: { type: String },
+      daysOpen: { type: [String] },
     },
     isActive: { type: Boolean, default: true },
     totalSellers: { type: Number, default: 0 },
-    deletedAt: { type: Date },
+    deletedAt: { type: Date, default: null },
   },
-  { timestamps: true }
+  { timestamps: true },
+);
+
+export const SellerProfileSchema = new Schema(
+  {
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    marketId: { type: Schema.Types.ObjectId, ref: 'Market', required: true },
+    stallId: { type: String, required: true },
+    stallName: { type: String, required: true },
+    description: { type: String },
+    isApproved: { type: Boolean, default: false },
+    rating: { type: Number, default: 0 },
+    totalSales: { type: Number, default: 0 },
+    businessPermitUrl: { type: String },
+    idCardUrl: { type: String },
+    stallPhotoUrl: { type: String },
+    deletedAt: { type: Date, default: null },
+  },
+  { timestamps: true },
+);
+
+export const RiderProfileSchema = new Schema(
+  {
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    plateNumber: { type: String, required: true },
+    isActive: { type: Boolean, default: false },
+    currentLocation: {
+      lat: { type: Number },
+      lng: { type: Number },
+      updatedAt: { type: Date },
+    },
+    rating: { type: Number, default: 0 },
+    totalDeliveries: { type: Number, default: 0 },
+    rejectionRate: { type: Number, default: 0 },
+    licenseUrl: { type: String },
+    vehiclePhotoUrl: { type: String },
+    idCardUrl: { type: String },
+    insuranceUrl: { type: String },
+    deletedAt: { type: Date, default: null },
+  },
+  { timestamps: true },
 );
