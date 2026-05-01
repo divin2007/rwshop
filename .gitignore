@@ -1,0 +1,10 @@
+node_modules
+dist
+.env
+.next
+.vscode
+coverage
+dev_output.log
+dev_output.log
+node_modules/
+dist/
