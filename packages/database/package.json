@@ -8,6 +8,10 @@
     "dev": "tsc -w"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.11.96",
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "mongoose": "^9.6.1"
   }
 }
