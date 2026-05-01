@@ -1,0 +1,14 @@
+{
+  "name": "rwandan-market-facilitator",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "services/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev -w apps/web\" \"npm run start:dev -w services/user-service\" \"npm run start:dev -w services/market-service\" \"npm run start:dev -w services/product-service\" \"npm run start:dev -w services/transaction-service\" \"npm run start:dev -w services/delivery-service\"",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@ruralmart/database",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.11.96",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "mongoose": "^9.6.1"
+  }
+}
